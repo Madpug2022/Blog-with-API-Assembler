@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog with API</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js" defer></script>
+    <script src="https://unpkg.com/@popperjs/core@2" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/d9005a0d59.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead" id="postBody">Post body</p>
+                <p><b id="user">USER</b></p>
+                <p id="userName">Sampleuser123</p>
+                <p id="userEmail">sample@email.com</p>
+                <button id="loadComments" type="button" class="btn btn-dark">Load Comments</button>
+            </div>
+            <div class="modal-footer d-md-block">
+                <button type="button" class="btn btn-secondary m-0" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead" id="postBody">Edit post</p>
+                <form>
+                    <div class="form-group m-1">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control mt-3 mb-2" id="title" placeholder="Post title">
+                    </div>
+                    <div class="form-group m-1">
+                        <label for="body">Body</label>
+                        <input type="text" class="form-control mt-3" id="body" placeholder="Post body">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mx-auto">
+                <button type="button" class="btn btn-dark m-0" data-bs-dismiss="modal">Save Changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container border bg-light">
+        <div class="row justify-content-center my-3 bg-info border gx-1">
+        <header>
+            <div class="col text-center">
+                <h1 class="display-6">Blog with API</h1>
+            </div>
+        </header>
+        </div>
+        <div class="row justify-content-center my-5">
+            <main>
+            <div class="col text-center">
+                <div id="postsBody" class="row justify-content-center align-items-space-between">
+                    <div class="col-10"><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modal">News</button></div>
+                    <div class="col"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editorModal"><i class="fa-regular fa-pen-to-square"></i></button></div>
+                    <div class="col"><button type="button" class="btn btn-dark"><i class="fa-regular fa-circle-xmark"></i></button></div>
+                </div>
+                <hr>
+            </div>
+        </main>
+        </div>
+    </div>
+
+</body>
+</html>
