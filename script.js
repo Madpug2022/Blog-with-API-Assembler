@@ -1,10 +1,11 @@
 // ! SELECTORS
-const apiPost = "https://jsonplaceholder.typicode.com/posts";
+const apiPost = "http://localhost:3000/posts";
 const postsBody = document.querySelector("#postsBody");
 const loadCommentsBtn = document.querySelector("#loadCommentsBtn");
 const saveChangesBtn = document.querySelector("#saveChangesBtn");
 let elementNumber = 0;
 let targetToChange = undefined;
+let pickedPost = undefined;
 // ! FETCHING
 fetch(apiPost)
     .then(response => response.json())
@@ -40,13 +41,15 @@ fetch(apiPost)
                 const userName = document.querySelector("#userName");
                 const userEmail = document.querySelector("#userEmail");
                 loadCommentsBtn.setAttribute("data-userId", userId);
-                fetch(`https://jsonplaceholder.typicode.com/posts?id=${id}`)
+                pickedPost = event.currentTarget.getAttribute("data-element");
+                console.log(pickedPost);
+                fetch(`http://localhost:3000/posts?id=${id}`)
                     .then(response => response.json())
                     .then(data => {
                         modalTittle.innerText = data[0].title;
                         modalBody.innerText = data[0].body;
                     })
-                fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+                fetch(`http://localhost:3000/users/${userId}`)
                     .then(response => response.json())
                     .then(users => {
                         user.innerText = users.name;
@@ -100,6 +103,7 @@ fetch(apiPost)
                 const elementToDelete = document.querySelector(`[data-elementNumber="${targetElement}"]`);
                 if (elementToDelete) {
                     elementToDelete.remove();
+                    alert("Element removed correctly!")
                 }
             });
 
@@ -159,11 +163,31 @@ function saveChanges(targetToChange) {
         inputField.value = ''
     }
 };
+function edit(targetToChange) {
+    const inputField = document.getElementById("changeTitle");
+    const newTittle = inputField.value;
+    fetch(`http://localhost:3000/posts/${targetToChange}`, {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+    title: newTittle
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+})
+.catch(error => {
+    console.error(error);
+});
+inputField.value = ''
+
+}
 // ! EVENT LISTENERS
-loadCommentsBtn.addEventListener("click", (event) => {
-            const thisId = event.currentTarget.getAttribute("data-userid");
-                console.log(thisId);
-                fetch(`https://jsonplaceholder.typicode.com/posts/${thisId}/comments`)
+loadCommentsBtn.addEventListener("click", () => {
+                fetch(`http://localhost:3000/comments?postId=${pickedPost}`)
                     .then(response => response.json())
                     .then(comments => {
                         loadComments(comments);
@@ -172,5 +196,8 @@ loadCommentsBtn.addEventListener("click", (event) => {
 });
 saveChangesBtn.addEventListener("click", (event) => {
     event.preventDefault();
-    saveChanges(targetToChange);
+    edit(targetToChange);
+    alert('The element was modified successfully');
 })
+
+// ? TESTING ZONE
